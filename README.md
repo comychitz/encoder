@@ -29,22 +29,20 @@ nothing in the todo queue currently.
 #include <stdio.h>
 
 // the gpio pins to use
-int gpio1 = 7,
-    gpio2 = 0,
-    gpio3 = 2;
+int gpioA = 7,
+    gpioB = 0,
+    gpioC = 2;
 
 int main( )
 {
-  char reading;
   int value = 0;
 
-  setup( gpio1, gpio2, gpio3 );    
+  setup( gpioA, gpioB, gpioC );    
   startReading();
 
   while( 1 ) 
   {
-
-    reading = getReading();
+    char reading = getReading();
 
     /* ["critical section start"] */
     if( reading == CLOCKWISE_STEP )

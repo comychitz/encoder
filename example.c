@@ -2,16 +2,15 @@
 #include <stdio.h>
 
 // the gpio pins to use
-int gpio1 = 7,
-    gpio2 = 0,
-    gpio3 = 2;
+int gpioA = 7,
+    gpioB = 0,
+    gpioC = 2;
 
 int main( )
 {
-  char reading;
   int value = 0;
 
-  setup( gpio1, gpio2, gpio3 );	  
+  setup( gpioA, gpioB, gpioC );	  
   startReading(); // spawns the threads in the
   //enableBuffering(); // disabled by default
 
@@ -21,7 +20,7 @@ int main( )
   printf("%d\n", value);
   while( 1 )
   {
-    reading = getReading();
+    char reading = getReading();
 
     /* ["critical section"]
      * Do whatever you like with the reading here
