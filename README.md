@@ -1,4 +1,4 @@
-## encoder.h
+## encoder
 A small set of C functions targeted for iterfacing a rotary encoder (specifically, Bourns Pro Audio Incremental Encoder PEC11-4215F-S24) with a Raspberry Pi B+ V1.2.
 
 ### usage
@@ -19,7 +19,7 @@ to set the gpio pins to read the data from the encoder on the pi use the integer
 ### todo
 nothing in the todo queue currently.
 
-#### example usage 
+### simple example
 ```C
 /**
  * A simple meter with no limits
