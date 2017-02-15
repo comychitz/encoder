@@ -23,7 +23,10 @@ nothing in the todo queue currently.
 ```C
 /**
  * A simple meter with no limits
-   Turning the encoder clockwise increases the value, counter-clockwise decreases it. If you press, it will reset to 0. If you press an hold, it will set the value to 100.
+ * Turning the encoder clockwise increases the value, 
+ * counter-clockwise decreases it. If you press, it 
+ * will reset to 0. If you press an hold, it will set 
+ * the value to 100.
  */
 #include "encoder.h"
 #include <stdio.h>
