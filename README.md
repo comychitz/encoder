@@ -2,7 +2,7 @@
 A small set of C functions targeted for iterfacing a rotary encoder (specifically, Bourns Pro Audio Incremental Encoder PEC11-4215F-S24) with a Raspberry Pi B+ V1.2.
 
 ### usage
-Include "encoder.h" in your C/C++ program and link with the encoder object file. Begin reading values from the encoder by calling startMonitoring(). Use stopMonitoring() to stop reading and wait() if you are looking to stop and wait in your program.
+Include "encoder.h" in your C/C++ program and link with the encoder object file. 
 
 defined event types:
   - CLOCKWISE_STEP
@@ -15,9 +15,6 @@ to set the gpio pins to read the data from the encoder on the pi use the integer
 ##### dependencies
 1. wiringPi 
 2. pthread
-
-### todo
-nothing in the todo queue currently.
 
 ### simple example
 ```C

@@ -1,6 +1,25 @@
 #include "encoder.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <wiringPi.h>
+#include <pthread.h>
+#include <semaphore.h>
+
+#define BUFFER_SIZE	      256
 
 // globals
+pthread_t rotateThread, pushThread;
+bool bufferingEnabled;
+sem_t produced, consumed;
+pthread_mutex_t bufferLock;
+
+void add_to_buffer( char value );
+void monitorRotation( void * );
+void monitorPushButton( void * );
+bool getPushButtonReading( void );
+char getKnobReading( char prev );
+
 int RUNNING = 0;
 char buffer[BUFFER_SIZE];
 int START = -1, END = 0;
