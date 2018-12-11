@@ -2,7 +2,7 @@
 #define _ENCODER_HPP_
 
 #include <set>
-#include <unordered_map>
+#include "EncoderSource.hpp"
 
 namespace Encoder {
 
@@ -36,7 +36,7 @@ namespace Encoder {
 
         /// events to ignore for the listener
         std::set<Event> disabledEvents;
-      };
+      } config;
   };
 
   /**
@@ -44,24 +44,30 @@ namespace Encoder {
    */
   class Monitor() {
     public:
-      Monitor();
+      Monitor(Source &source);
 
       virtual ~Monitor();
 
       /**
-       * Monitor the encoder movememnt - spawns thread for monitoring.
+       * Start thread for monitoring encoder movememnt.
+       * @return true if successfully started monitoring, false on error
        */
-      void monitor();
+      bool start();
+
+      /**
+       * Stop monitoring.
+       */
+      void stop();
 
       /**
        * Register a listener with the monitor.
        * @param listener reference to listener
-       * @param config configuration of the listener
+       * @return true if listener registered successfully, false otherwise
        */
-      void registerListener(Listener &listener, const Listener::Config &config);
+      bool registerListener(Listener &listener);
 
     private:
-      std::unordered_map<Listener*, Listener::Config> listeners_;
+      std::set<Listener*> listeners_;
   };
 
 }
