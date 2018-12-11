@@ -21,8 +21,8 @@ namespace Encoder {
 
       /**
        * get knob reading
-       * @return 1 if counter clockwise turn
-       *         0 if clockwise turn
+       * @return reading value of knob
+       *         0 if knob steady in place
        *         -1 on error
        */
       virtual int getKnobReading() = 0;

@@ -2,6 +2,7 @@
 #define _ENCODER_HPP_
 
 #include <set>
+#include <mutex>
 #include "EncoderSource.hpp"
 
 namespace Encoder {
@@ -9,8 +10,9 @@ namespace Encoder {
   enum Event {
     COUNTER_CLOCKWISE_STEP = 0,
     CLOCKWISE_STEP,
-    BUTTON_PRESS,
+    BUTTON_PUSH,
     BUTTON_HOLD,
+    BUTTON_RELEASE,
     READ_ERROR
   };
 
@@ -66,8 +68,37 @@ namespace Encoder {
        */
       bool registerListener(Listener &listener);
 
+      /**
+       * Unregister a listener.
+       */
+      void unregisterListener(Listener &listener);
+
     private:
+      /**
+       * monitor the knob activity
+       */
+      void monitorKnob_();
+
+      /**
+       * monitor push button activity
+       */
+      void monitorPush_();
+
+      /**
+       * notify all listeners of an event that occurred
+       */
+      void notifyListeners_(Event event);
+
+      /**
+       * notify a single listener
+       */
+      void notifyListener_(Listener *listener, Event event);
+
+      bool running_;
+      Source &source_;
+      std::mutex notifyLock;
       std::set<Listener*> listeners_;
+      std::thread knobThread_, pushThread_;
   };
 
 }

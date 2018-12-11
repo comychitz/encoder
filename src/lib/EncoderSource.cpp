@@ -1,5 +1,7 @@
 #include "EncoderSource.hpp"
+extern "C" {
 #include <wiringPi.h>
+}
 
 namespace Encoder {
 
