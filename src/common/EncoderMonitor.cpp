@@ -42,15 +42,15 @@ namespace Encoder {
   void Monitor::monitorKnob_() {
     while (running_) 
     {
-      char reading1 = source_.getKnobReading(0x00);
+      int reading1 = source_.getKnobReading();
       if (reading1 == 0x00)
       {
         continue;
       }
-      char reading2 = source_.getKnobReading(reading1);
+      int reading2 = source_.getKnobReading();
       if (reading2 == 0x03)
       {
-        char reading3 = source_.getKnobReading(reading2);
+        int reading3 = source_.getKnobReading();
         if (reading2 - reading3 == 2 && reading1 == 2)
         {
           notifyListeners_(CLOCKWISE_STEP);
@@ -67,7 +67,7 @@ namespace Encoder {
     while (running_)
     {
       unsigned long timeHeldDown = 0;
-      while (getPushButtonReading())
+      while (source_.getButtonReading())
       {
         std::set<Listener*> listeners;
         if(timeHeldDown == 0) {
@@ -75,9 +75,9 @@ namespace Encoder {
           notifyListeners_(BUTTON_PUSH);
         }
         for (auto &listener : listeners) {
-          if (listener.config.disabledEvents.find(BUTTON_HOLD) == 
-              listener.config.disabledEvents.end() && 
-              listener.config.holdThreshold <= timeHeldDown) {
+          if (listener->config.disabledEvents.find(BUTTON_HOLD) == 
+              listener->config.disabledEvents.end() && 
+              listener->config.holdThreshold <= timeHeldDown) {
             notifyListener_(listener, BUTTON_HOLD);
             listeners.erase(listener);
           }
@@ -85,7 +85,7 @@ namespace Encoder {
         timeHeldDown++;
         usleep(1000*1);
       }
-      notifyListeners(BUTTON_RELEASE);
+      notifyListeners_(BUTTON_RELEASE);
       usleep(1000*10);
     }
   }

@@ -3,6 +3,7 @@
 
 #include <set>
 #include <mutex>
+#include <thread>
 #include "EncoderSource.hpp"
 
 namespace Encoder {
@@ -20,7 +21,7 @@ namespace Encoder {
    * Event listener - reacts to events detected by the monitor. By default, all
    * events are configured to be handled by the listener, unless disabled.
    */
-  class Listener() {
+  class Listener {
     public:
       virtual ~Listener() { }
 
@@ -44,7 +45,7 @@ namespace Encoder {
   /**
    * Monitor encoder movement, notifying listeners of any events.
    */
-  class Monitor() {
+  class Monitor {
     public:
       Monitor(Source &source);
 
