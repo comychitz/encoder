@@ -57,12 +57,14 @@ bool enableBuffering( void )
 {
   clearBuffer();
   bufferingEnabled = true;
+  return true;
 }
 
 bool disableBuffering( void )
 {
   clearBuffer();
   bufferingEnabled = false;
+  return true;
 }
 
 void setHoldTime( long long holdTime )
@@ -150,7 +152,7 @@ void add_to_buffer( char value )
   pthread_mutex_lock(&bufferLock);
   if( START == END )
   {
-    wait(&consumed);
+    sem_wait(&consumed);
   }
   if( START == -1 )
   {
